@@ -308,7 +308,9 @@
         <p>Construyo cosas en internet, escribo sobre tecnología, negocios y lo que voy aprendiendo por el camino. Sin filtros.</p>
 
         <div class="email-form">
-            <form action="https://buttondown.com/api/emails/newsletter-subscribe" id="bd-subscribe" method="post" target="popupwindow" onsubmit="handleSubmit(event)">
+            <form action="https://buttondown.com/api/emails/newsletter-subscribe" method="post" onsubmit="handleSubmit(event)">
+                <input type="hidden" name="tag" value="website">
+                <input type="hidden" name="embed" value="1">
                 <input type="email" name="email" placeholder="tu@email.com" required>
                 <button type="submit">Suscribirme</button>
             </form>
@@ -361,19 +363,21 @@
         function handleSubmit(e) {
             e.preventDefault();
             const form = e.target;
-            const email = form.querySelector('input[type="email"]').value;
+            const formData = new FormData(form);
 
             // Send to Buttondown
             fetch('https://buttondown.com/api/emails/newsletter-subscribe', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email: email, tags: ['website'], newsletter: 'ikerroman' })
-            }).catch(() => {});
-
-            // Show success regardless (Buttondown handles validation via email)
-            form.style.display = 'none';
-            document.getElementById('formSuccess').style.display = 'block';
-            document.querySelector('.form-note').style.display = 'none';
+                body: formData
+            }).then(() => {
+                form.style.display = 'none';
+                document.getElementById('formSuccess').style.display = 'block';
+                document.querySelector('.form-note').style.display = 'none';
+            }).catch(() => {
+                form.style.display = 'none';
+                document.getElementById('formSuccess').style.display = 'block';
+                document.querySelector('.form-note').style.display = 'none';
+            });
         }
     </script>
 </body>
