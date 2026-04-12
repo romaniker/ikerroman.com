@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- ✏️ CAMBIA el título -->
+    <title>TÍTULO DEL POST — Iker Roman</title>
+    <meta name="description" content="DESCRIPCIÓN CORTA DEL POST">
+    <meta property="og:title" content="TÍTULO DEL POST — Iker Roman">
+    <meta property="og:description" content="DESCRIPCIÓN CORTA DEL POST">
+    <meta property="og:type" content="article">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="TÍTULO DEL POST — Iker Roman">
+    <meta name="twitter:description" content="DESCRIPCIÓN CORTA DEL POST">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --bg: #000000; --text: #FFFFFF; --text-secondary: #888888; --border: #222222; }
+        [data-theme="light"] { --bg: #FFFFFF; --text: #000000; --text-secondary: #666666; --border: #e0e0e0; }
+        body { font-family: 'Figtree', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; transition: background 0.3s ease, color 0.3s ease; -webkit-font-smoothing: antialiased; }
+        nav { position: fixed; top: 0; width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 1rem 1.5rem; background: var(--bg); z-index: 100; border-bottom: 1px solid var(--border); }
+        .nav-left a { font-weight: 700; font-size: 1.1rem; color: var(--text); text-decoration: none; }
+        .nav-right { display: flex; align-items: center; gap: 1.5rem; }
+        .nav-right a { color: var(--text-secondary); text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
+        .nav-right a:hover { color: var(--text); }
+        .theme-toggle { background: none; border: 1px solid var(--border); color: var(--text); cursor: pointer; padding: 0.4rem 0.6rem; border-radius: 6px; font-size: 1rem; line-height: 1; transition: border-color 0.2s; }
+        .theme-toggle:hover { border-color: var(--text-secondary); }
+        article { max-width: 620px; margin: 0 auto; padding: 6rem 1.5rem 3rem; }
+        article header { margin-bottom: 2.5rem; }
+        article h1 { font-size: 2rem; font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 0.75rem; }
+        .article-meta { color: var(--text-secondary); font-size: 0.9rem; }
+        .article-body { font-size: 1.05rem; line-height: 1.75; }
+        .article-body p { margin-bottom: 1.5rem; }
+        .article-body h2 { font-size: 1.4rem; font-weight: 700; margin: 2.5rem 0 1rem; }
+        .article-body h3 { font-size: 1.15rem; font-weight: 600; margin: 2rem 0 0.75rem; }
+        .article-body a { color: var(--text); text-decoration: underline; text-underline-offset: 3px; }
+        .article-body a:hover { color: var(--text-secondary); }
+        .article-body ul, .article-body ol { margin: 0 0 1.5rem 1.5rem; }
+        .article-body li { margin-bottom: 0.5rem; }
+        .article-body blockquote { border-left: 3px solid var(--border); padding-left: 1.25rem; color: var(--text-secondary); margin: 1.5rem 0; font-style: italic; }
+        .article-body code { background: var(--border); padding: 0.15rem 0.4rem; border-radius: 4px; font-size: 0.9em; }
+        .article-body pre { background: var(--border); padding: 1rem 1.25rem; border-radius: 8px; overflow-x: auto; margin: 1.5rem 0; }
+        .article-body pre code { background: none; padding: 0; }
+        .article-body img { max-width: 100%; border-radius: 8px; margin: 1.5rem 0; }
+        .back-link { display: inline-block; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--border); color: var(--text-secondary); text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
+        .back-link:hover { color: var(--text); }
+        footer { text-align: center; padding: 2rem 1.5rem; border-top: 1px solid var(--border); font-size: 0.85rem; color: var(--text-secondary); max-width: 620px; margin: 3rem auto 0; }
+        footer a { color: var(--text-secondary); text-decoration: none; transition: color 0.2s; }
+        footer a:hover { color: var(--text); }
+        @media (max-width: 480px) { article h1 { font-size: 1.6rem; } .article-body { font-size: 1rem; } nav { padding: 0.85rem 1rem; } .nav-right { gap: 1rem; } }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-left"><a href="/">iker roman</a></div>
+        <div class="nav-right">
+            <a href="/blog.html">blog</a>
+            <a href="https://x.com/TU_USUARIO" target="_blank" rel="noopener">twitter</a>
+            <button class="theme-toggle" id="themeToggle" aria-label="Cambiar tema">☀️</button>
+        </div>
+    </nav>
+
+    <article>
+        <header>
+            <!-- ✏️ CAMBIA el título y la fecha -->
+            <h1>TÍTULO DEL POST</h1>
+            <div class="article-meta">DD mes AAAA</div>
+        </header>
+
+        <div class="article-body">
+            <!-- ✏️ ESCRIBE TU POST AQUÍ -->
+
+            <p>Primer párrafo del post.</p>
+
+            <p>Segundo párrafo.</p>
+
+            <!-- /POST -->
+        </div>
+
+        <a href="/blog.html" class="back-link">← Volver al blog</a>
+    </article>
+
+    <footer>
+        <p>© 2026 Iker Roman · <a href="/">Inicio</a></p>
+    </footer>
+
+    <script>
+        const toggle = document.getElementById('themeToggle');
+        const html = document.documentElement;
+        function setTheme(t) { html.setAttribute('data-theme', t); toggle.textContent = t === 'dark' ? '☀️' : '🌙'; localStorage.setItem('theme', t); }
+        setTheme(localStorage.getItem('theme') || 'dark');
+        toggle.addEventListener('click', () => { setTheme(html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'); });
+    </script>
+</body>
+</html>

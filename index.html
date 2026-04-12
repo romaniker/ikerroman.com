@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iker Roman</title>
+    <meta name="description" content="Iker Roman — emprendimiento, tecnología y vida real. Suscríbete para no perderte nada.">
+    <meta property="og:title" content="Iker Roman">
+    <meta property="og:description" content="Emprendimiento, tecnología y vida real.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ikerroman.com">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Iker Roman">
+    <meta name="twitter:description" content="Emprendimiento, tecnología y vida real.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #000000;
+            --text: #FFFFFF;
+            --text-secondary: #888888;
+            --border: #222222;
+            --accent: #FFFFFF;
+            --input-bg: #111111;
+        }
+
+        [data-theme="light"] {
+            --bg: #FFFFFF;
+            --text: #000000;
+            --text-secondary: #666666;
+            --border: #e0e0e0;
+            --accent: #000000;
+            --input-bg: #f5f5f5;
+        }
+
+        body {
+            font-family: 'Figtree', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            transition: background 0.3s ease, color 0.3s ease;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* NAV */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            background: var(--bg);
+            z-index: 100;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-left a {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--text);
+            text-decoration: none;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .nav-right a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        .nav-right a:hover {
+            color: var(--text);
+        }
+
+        .theme-toggle {
+            background: none;
+            border: 1px solid var(--border);
+            color: var(--text);
+            cursor: pointer;
+            padding: 0.4rem 0.6rem;
+            border-radius: 6px;
+            font-size: 1rem;
+            line-height: 1;
+            transition: border-color 0.2s;
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--text-secondary);
+        }
+
+        /* HERO */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 6rem 1.5rem 4rem;
+            max-width: 560px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 2.5rem;
+        }
+
+        /* EMAIL FORM */
+        .email-form {
+            width: 100%;
+            max-width: 420px;
+        }
+
+        .email-form form {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .email-form input[type="email"] {
+            flex: 1;
+            padding: 0.85rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: var(--input-bg);
+            color: var(--text);
+            font-size: 1rem;
+            font-family: inherit;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .email-form input[type="email"]::placeholder {
+            color: var(--text-secondary);
+        }
+
+        .email-form input[type="email"]:focus {
+            border-color: var(--text-secondary);
+        }
+
+        .email-form button {
+            padding: 0.85rem 1.5rem;
+            background: var(--text);
+            color: var(--bg);
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            font-family: inherit;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: opacity 0.2s;
+        }
+
+        .email-form button:hover {
+            opacity: 0.85;
+        }
+
+        .form-note {
+            margin-top: 0.75rem;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .form-success {
+            display: none;
+            padding: 1rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 0.95rem;
+            text-align: center;
+        }
+
+        /* RECENT POSTS */
+        .recent-posts {
+            max-width: 560px;
+            margin: 0 auto;
+            padding: 0 1.5rem 4rem;
+        }
+
+        .recent-posts h2 {
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .post-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .post-item a {
+            text-decoration: none;
+            color: var(--text);
+            display: block;
+            padding: 1rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            transition: border-color 0.2s;
+        }
+
+        .post-item a:hover {
+            border-color: var(--text-secondary);
+        }
+
+        .post-title {
+            font-weight: 600;
+            font-size: 1.05rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .post-meta {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        /* FOOTER */
+        footer {
+            text-align: center;
+            padding: 2rem 1.5rem;
+            border-top: 1px solid var(--border);
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        footer a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        footer a:hover {
+            color: var(--text);
+        }
+
+        /* MOBILE */
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 1.75rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .email-form form {
+                flex-direction: column;
+            }
+
+            .email-form button {
+                width: 100%;
+            }
+
+            nav {
+                padding: 0.85rem 1rem;
+            }
+
+            .nav-right {
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-left">
+            <a href="/">iker roman</a>
+        </div>
+        <div class="nav-right">
+            <a href="/blog.html">blog</a>
+            <a href="https://x.com/TU_USUARIO" target="_blank" rel="noopener">twitter</a>
+            <button class="theme-toggle" id="themeToggle" aria-label="Cambiar tema">☀️</button>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <h1>Hola, soy Iker</h1>
+        <p>Construyo cosas en internet, escribo sobre tecnología, negocios y lo que voy aprendiendo por el camino. Sin filtros.</p>
+
+        <div class="email-form">
+            <form action="https://buttondown.com/api/emails/newsletter-subscribe" method="post" target="popupwindow" onsubmit="handleSubmit(event)">
+                <input type="email" name="email" placeholder="tu@email.com" required>
+                <button type="submit">Suscribirme</button>
+            </form>
+            <p class="form-note">Sin spam. Solo aviso cuando publico algo nuevo.</p>
+            <div class="form-success" id="formSuccess">
+                ✓ ¡Apuntado! Te aviso cuando publique algo nuevo.
+            </div>
+        </div>
+    </section>
+
+    <section class="recent-posts" id="recentPosts">
+        <h2>Últimos posts</h2>
+        <ul class="post-list">
+            <!-- POSTS: Añade nuevos posts aquí arriba -->
+            <li class="post-item">
+                <a href="/blog/hola-mundo.html">
+                    <div class="post-title">Hola mundo</div>
+                    <div class="post-meta">12 abril 2026</div>
+                </a>
+            </li>
+            <!-- /POSTS -->
+        </ul>
+    </section>
+
+    <footer>
+        <p>© 2026 Iker Roman · <a href="https://x.com/TU_USUARIO" target="_blank" rel="noopener">Twitter</a></p>
+    </footer>
+
+    <script>
+        // Theme toggle
+        const toggle = document.getElementById('themeToggle');
+        const html = document.documentElement;
+
+        function setTheme(theme) {
+            html.setAttribute('data-theme', theme);
+            toggle.textContent = theme === 'dark' ? '☀️' : '🌙';
+            localStorage.setItem('theme', theme);
+        }
+
+        // Load saved theme or default to dark
+        const saved = localStorage.getItem('theme') || 'dark';
+        setTheme(saved);
+
+        toggle.addEventListener('click', () => {
+            const current = html.getAttribute('data-theme');
+            setTheme(current === 'dark' ? 'light' : 'dark');
+        });
+
+        // Form submit
+        function handleSubmit(e) {
+            e.preventDefault();
+            const form = e.target;
+            const email = form.querySelector('input[type="email"]').value;
+
+            // Send to Buttondown
+            fetch('https://buttondown.com/api/emails/newsletter-subscribe', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email: email, tags: ['website'] })
+            }).catch(() => {});
+
+            // Show success regardless (Buttondown handles validation via email)
+            form.style.display = 'none';
+            document.getElementById('formSuccess').style.display = 'block';
+            document.querySelector('.form-note').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
