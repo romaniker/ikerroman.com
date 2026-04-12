@@ -308,7 +308,7 @@
         <p>Construyo cosas en internet, escribo sobre tecnología, negocios y lo que voy aprendiendo por el camino. Sin filtros.</p>
 
         <div class="email-form">
-            <form action="https://buttondown.com/api/emails/newsletter-subscribe" method="post" target="popupwindow" onsubmit="handleSubmit(event)">
+            <form action="https://buttondown.com/api/emails/newsletter-subscribe" id="bd-subscribe" method="post" target="popupwindow" onsubmit="handleSubmit(event)">
                 <input type="email" name="email" placeholder="tu@email.com" required>
                 <button type="submit">Suscribirme</button>
             </form>
@@ -367,7 +367,7 @@
             fetch('https://buttondown.com/api/emails/newsletter-subscribe', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email: email, tags: ['website'] })
+                body: JSON.stringify({ email: email, tags: ['website'], newsletter: 'ikerroman' })
             }).catch(() => {});
 
             // Show success regardless (Buttondown handles validation via email)
