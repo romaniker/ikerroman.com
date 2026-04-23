@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para ti</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Figtree', sans-serif;
+            background: #ffe0ec;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .container {
+            text-align: center;
+            padding: 2rem;
+            z-index: 10;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #d6336c;
+            margin-bottom: 3rem;
+            line-height: 1.3;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-si {
+            padding: 1rem 2.5rem;
+            background: #2b8a3e;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            font-family: inherit;
+            cursor: pointer;
+            transition: transform 0.2s, font-size 0.3s, padding 0.3s;
+            z-index: 20;
+        }
+
+        .btn-si:hover {
+            transform: scale(1.05);
+        }
+
+        .btn-no {
+            padding: 1rem 2.5rem;
+            background: #e03131;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            font-family: inherit;
+            cursor: pointer;
+            transition: transform 0.15s;
+            z-index: 20;
+        }
+
+        .btn-no.runaway {
+            position: fixed;
+            transition: none;
+        }
+
+        /* Success */
+        .success-screen {
+            display: none;
+            text-align: center;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .success-screen h2 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #d6336c;
+            margin-bottom: 2.5rem;
+        }
+
+        .voucher {
+            display: none;
+            background: white;
+            border: 3px dashed #d6336c;
+            border-radius: 16px;
+            padding: 2.5rem 2rem;
+            max-width: 380px;
+            margin: 0 auto;
+            animation: fadeInUp 0.6s ease;
+            position: relative;
+        }
+
+        .voucher-header {
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: #d6336c;
+            margin-bottom: 0.5rem;
+        }
+
+        .voucher-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #333;
+            line-height: 1.5;
+            margin-bottom: 1.5rem;
+        }
+
+        .voucher-footer {
+            font-size: 0.75rem;
+            color: #999;
+            border-top: 1px solid #eee;
+            padding-top: 1rem;
+        }
+
+        .claim-btn {
+            display: none;
+            margin: 1.5rem auto 0;
+            padding: 1rem 2rem;
+            background: #d6336c;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            font-family: inherit;
+            cursor: pointer;
+            animation: pulse 1.5s infinite;
+        }
+
+        .claim-btn:hover {
+            background: #c2255c;
+        }
+
+        /* Hearts background */
+        .heart {
+            position: fixed;
+            font-size: 1.5rem;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.06); }
+        }
+
+        @keyframes floatHeart {
+            0% { opacity: 0; transform: translateY(0) rotate(0deg); }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { opacity: 0; transform: translateY(-100vh) rotate(45deg); }
+        }
+
+        @media (max-width: 480px) {
+            h1 { font-size: 1.8rem; }
+            .success-screen h2 { font-size: 1.6rem; }
+            .voucher { margin: 0 1rem; padding: 2rem 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="questionScreen">
+        <h1>Me perdonas?</h1>
+        <div class="buttons">
+            <button class="btn-si" id="btnSi">Si</button>
+            <button class="btn-no" id="btnNo">No</button>
+        </div>
+    </div>
+
+    <div class="success-screen" id="successScreen">
+        <h2>Sabia que si me perdonarias</h2>
+        <button class="claim-btn" id="claimBtn">Haz click para reclamar tu regalo</button>
+        <div class="voucher" id="voucher">
+            <div class="voucher-header">Vale canjeable</div>
+            <div class="voucher-title">
+                Un ramo de flores<br>
+                1 ramen<br>
+                y un Twix de 10
+            </div>
+            <div class="voucher-footer">Sin fecha de caducidad. Con todo mi amor.</div>
+        </div>
+    </div>
+
+    <script>
+        const btnSi = document.getElementById('btnSi');
+        const btnNo = document.getElementById('btnNo');
+        const questionScreen = document.getElementById('questionScreen');
+        const successScreen = document.getElementById('successScreen');
+        const claimBtn = document.getElementById('claimBtn');
+        const voucher = document.getElementById('voucher');
+
+        let noCount = 0;
+        const maxClicks = 28;
+
+        // Grow the SI button each time NO is clicked
+        function growSiButton() {
+            const scale = 1 + (noCount * 0.15);
+            const newSize = 1.2 + (noCount * 0.12);
+            const newPadding = 1 + (noCount * 0.15);
+            btnSi.style.fontSize = newSize + 'rem';
+            btnSi.style.padding = newPadding + 'rem ' + (newPadding * 2.2) + 'rem';
+        }
+
+        // Make NO button run away
+        function makeNoRunaway() {
+            btnNo.classList.add('runaway');
+
+            function moveAway() {
+                const maxX = window.innerWidth - btnNo.offsetWidth - 20;
+                const maxY = window.innerHeight - btnNo.offsetHeight - 20;
+                const newX = Math.random() * maxX;
+                const newY = Math.random() * maxY;
+                btnNo.style.left = newX + 'px';
+                btnNo.style.top = newY + 'px';
+            }
+
+            btnNo.addEventListener('mouseover', moveAway);
+            btnNo.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                moveAway();
+            });
+
+            moveAway();
+        }
+
+        // Spawn floating hearts
+        function spawnHearts() {
+            const hearts = ['❤️', '💕', '💗', '💖', '💝'];
+            setInterval(() => {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.bottom = '-2rem';
+                heart.style.fontSize = (1 + Math.random() * 1.5) + 'rem';
+                heart.style.animation = `floatHeart ${3 + Math.random() * 4}s linear forwards`;
+                document.body.appendChild(heart);
+                setTimeout(() => heart.remove(), 7000);
+            }, 300);
+        }
+
+        // NO button click
+        btnNo.addEventListener('click', () => {
+            noCount++;
+            growSiButton();
+
+            if (noCount >= maxClicks) {
+                makeNoRunaway();
+            }
+        });
+
+        // SI button click
+        btnSi.addEventListener('click', () => {
+            questionScreen.style.display = 'none';
+            btnNo.style.display = 'none';
+            successScreen.style.display = 'block';
+            claimBtn.style.display = 'block';
+            spawnHearts();
+        });
+
+        // Claim button click
+        claimBtn.addEventListener('click', () => {
+            claimBtn.style.display = 'none';
+            voucher.style.display = 'block';
+        });
+    </script>
+</body>
+</html>
