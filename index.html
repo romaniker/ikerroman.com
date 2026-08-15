@@ -293,7 +293,7 @@
             border: 1px solid var(--border);
             border-radius: 8px;
             white-space: pre-wrap;
-            word-break: break-all;
+            overflow-wrap: anywhere;
             font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
             font-size: 0.85rem;
             line-height: 1.5;
@@ -434,13 +434,13 @@
     <section class="projects" id="projects">
         <h2>Proyectos</h2>
         <div class="project-card" id="quotabar">
-            <div class="project-title"><a href="https://github.com/romaniker/QuotaBar">QuotaBar</a></div>
+            <div class="project-title"><a href="/quotabar">QuotaBar</a></div>
             <p class="project-desc">Un punto de color en la barra de menús del Mac que te dice cuánta cuota de Claude te queda, y te avisa antes de que se acabe. Open source, ~900 líneas de Swift.</p>
             <div class="project-install">
                 <pre><code id="quotabarCmd">git clone https://github.com/romaniker/QuotaBar.git &amp;&amp; cd QuotaBar &amp;&amp; ./install.sh</code></pre>
                 <button type="button" id="quotabarCopy">Copiar</button>
             </div>
-            <p class="project-meta"><strong>Requisitos:</strong> macOS 14+, Apple Silicon, Command Line Tools (<code>xcode-select --install</code>) y Claude Code con sesión iniciada. Se compila en tu Mac: no hay binario que descargar.</p>
+            <p class="project-meta"><strong>Requisitos:</strong> macOS 14+ (Intel o Apple Silicon), Command Line Tools (<code>xcode-select --install</code>) y Claude Code con sesión iniciada. Se compila en tu Mac: no hay binario que descargar.</p>
             <p class="project-meta"><strong>Privacidad:</strong> lee el token que Claude Code ya guarda en tu Llavero, no almacena credenciales propias y solo habla con la API de Anthropic. Sin analítica ni telemetría.</p>
             <p class="project-links"><a href="https://github.com/romaniker/QuotaBar">Código en GitHub →</a></p>
         </div>

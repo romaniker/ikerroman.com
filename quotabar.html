@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuotaBar — Iker Roman</title>
+    <meta name="description" content="QuotaBar: un punto de color en la barra de menús del Mac que te dice cuánta cuota de Claude te queda. Open source, se compila en tu Mac.">
+    <meta property="og:title" content="QuotaBar — Iker Roman">
+    <meta property="og:description" content="Un punto de color en la barra de menús del Mac que te dice cuánta cuota de Claude te queda.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ikerroman.com/quotabar">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="QuotaBar — Iker Roman">
+    <meta name="twitter:description" content="Un punto de color en la barra de menús del Mac que te dice cuánta cuota de Claude te queda.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --bg: #000000; --text: #FFFFFF; --text-secondary: #888888; --border: #222222; --input-bg: #111111; }
+        [data-theme="light"] { --bg: #FFFFFF; --text: #000000; --text-secondary: #666666; --border: #e0e0e0; --input-bg: #f5f5f5; }
+        body { font-family: 'Figtree', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; transition: background 0.3s ease, color 0.3s ease; -webkit-font-smoothing: antialiased; }
+        nav { position: fixed; top: 0; width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 1rem 1.5rem; background: var(--bg); z-index: 100; border-bottom: 1px solid var(--border); }
+        .nav-left a { font-weight: 700; font-size: 1.1rem; color: var(--text); text-decoration: none; }
+        .nav-right { display: flex; align-items: center; gap: 1.5rem; }
+        .nav-right a { color: var(--text-secondary); text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
+        .nav-right a:hover { color: var(--text); }
+        .theme-toggle { background: none; border: 1px solid var(--border); color: var(--text); cursor: pointer; padding: 0.4rem 0.6rem; border-radius: 6px; font-size: 1rem; line-height: 1; transition: border-color 0.2s; }
+        .theme-toggle:hover { border-color: var(--text-secondary); }
+        article { max-width: 620px; margin: 0 auto; padding: 6rem 1.5rem 3rem; }
+        article header { margin-bottom: 2.5rem; }
+        article h1 { font-size: 2rem; font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 0.75rem; }
+        .article-meta { color: var(--text-secondary); font-size: 1.05rem; line-height: 1.6; }
+        .article-body { font-size: 1.05rem; line-height: 1.75; }
+        .article-body p { margin-bottom: 1.5rem; }
+        .article-body h2 { font-size: 1.4rem; font-weight: 700; margin: 2.5rem 0 1rem; }
+        .article-body a { color: var(--text); text-decoration: underline; text-underline-offset: 3px; }
+        .article-body a:hover { color: var(--text-secondary); }
+        .article-body ul { margin: 0 0 1.5rem 1.5rem; }
+        .article-body li { margin-bottom: 0.5rem; }
+        .article-body code { background: var(--border); padding: 0.15rem 0.4rem; border-radius: 4px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+        .install { position: relative; margin: 1.5rem 0; }
+        .install pre { margin: 0; padding: 1rem 5.5rem 1rem 1.25rem; background: var(--input-bg); border: 1px solid var(--border); border-radius: 8px; white-space: pre-wrap; overflow-wrap: anywhere; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.9rem; line-height: 1.6; }
+        .install pre code { background: none; padding: 0; font-size: inherit; }
+        .install button { position: absolute; top: 0.6rem; right: 0.6rem; padding: 0.35rem 0.7rem; background: var(--text); color: var(--bg); border: none; border-radius: 6px; font-size: 0.8rem; font-weight: 600; font-family: inherit; cursor: pointer; transition: opacity 0.2s; }
+        .install button:hover { opacity: 0.85; }
+        .back-link { display: inline-block; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--border); color: var(--text-secondary); text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
+        .back-link:hover { color: var(--text); }
+        footer { text-align: center; padding: 2rem 1.5rem; border-top: 1px solid var(--border); font-size: 0.85rem; color: var(--text-secondary); max-width: 620px; margin: 3rem auto 0; }
+        footer a { color: var(--text-secondary); text-decoration: none; transition: color 0.2s; }
+        footer a:hover { color: var(--text); }
+        @media (max-width: 480px) { article h1 { font-size: 1.6rem; } .article-body { font-size: 1rem; } nav { padding: 0.85rem 1rem; } .nav-right { gap: 1rem; } }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-left"><a href="/">iker roman</a></div>
+        <div class="nav-right">
+            <a href="/blog.html">blog</a>
+            <a href="https://x.com/TU_USUARIO" target="_blank" rel="noopener">twitter</a>
+            <button class="theme-toggle" id="themeToggle" aria-label="Cambiar tema">☀️</button>
+        </div>
+    </nav>
+
+    <article>
+        <header>
+            <h1>QuotaBar</h1>
+            <p class="article-meta">Un punto de color en la barra de menús del Mac que te dice cuánta cuota de Claude te queda, y te avisa antes de que se acabe.</p>
+        </header>
+
+        <div class="article-body">
+            <h2>Qué hace</h2>
+            <ul>
+                <li>Muestra en la barra de menús el porcentaje de cuota usado: verde, ámbar o rojo según lo cerca que estés del límite.</li>
+                <li>Al pulsarlo, una barra por límite (sesión de 5 h y semanal) con la cuenta atrás hasta que se reinicia.</li>
+                <li>Te notifica al cruzar los umbrales que tú elijas, una sola vez por ventana. Sin spam.</li>
+                <li>Distingue «0 %» de «no lo sé»: si falla la red te enseña el último dato conocido, atenuado, nunca un cero falso.</li>
+            </ul>
+            <p>Sin ventana principal, sin icono en el Dock, sin cuenta. Es una utilidad, no una suite.</p>
+
+            <h2>Instalar</h2>
+            <p>Se compila en tu Mac en unos 20 segundos. No hay binario que descargar: no está firmado ni notarizado, y no quiero acostumbrarte a saltarte Gatekeeper con ejecutables de desconocidos.</p>
+            <div class="install">
+                <pre><code id="quotabarCmd">git clone https://github.com/romaniker/QuotaBar.git &amp;&amp; cd QuotaBar &amp;&amp; ./install.sh</code></pre>
+                <button type="button" id="quotabarCopy">Copiar</button>
+            </div>
+            <p><strong>Requisitos:</strong> macOS 14 o posterior (Intel o Apple Silicon), Command Line Tools de Apple (<code>xcode-select --install</code>) y <a href="https://claude.com/claude-code" target="_blank" rel="noopener">Claude Code</a> con sesión iniciada.</p>
+
+            <h2>Privacidad</h2>
+            <p>QuotaBar lee el token que Claude Code ya guarda en tu Llavero (macOS te pedirá permiso la primera vez: «Permitir siempre»). No escribe en el Llavero, no pide contraseñas y no almacena credenciales propias. Habla con un único servidor, la API de Anthropic, para leer tu consumo. Sin analítica ni telemetría. El código es corto y está pensado para que lo leas.</p>
+            <p>No es un producto oficial de Anthropic.</p>
+
+            <h2>Código</h2>
+            <p><a href="https://github.com/romaniker/QuotaBar">github.com/romaniker/QuotaBar</a> — MIT. Está preparado para añadir más proveedores de IA: un fichero y una línea.</p>
+        </div>
+
+        <a href="/" class="back-link">← Volver al inicio</a>
+    </article>
+
+    <footer>
+        <p>© 2026 Iker Roman · <a href="/">Inicio</a></p>
+    </footer>
+
+    <script>
+        const toggle = document.getElementById('themeToggle');
+        const html = document.documentElement;
+        function setTheme(t) { html.setAttribute('data-theme', t); toggle.textContent = t === 'dark' ? '☀️' : '🌙'; localStorage.setItem('theme', t); }
+        setTheme(localStorage.getItem('theme') || 'dark');
+        toggle.addEventListener('click', () => { setTheme(html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'); });
+
+        document.getElementById('quotabarCopy').addEventListener('click', () => {
+            const btn = document.getElementById('quotabarCopy');
+            const text = document.getElementById('quotabarCmd').textContent;
+            const done = () => { btn.textContent = 'Copiado'; setTimeout(() => btn.textContent = 'Copiar', 1500); };
+            if (navigator.clipboard) navigator.clipboard.writeText(text).then(done); else done();
+        });
+    </script>
+</body>
+</html>
