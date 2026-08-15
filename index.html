@@ -244,6 +244,102 @@
             color: var(--text-secondary);
         }
 
+        /* PROJECTS */
+        .projects {
+            max-width: 560px;
+            margin: 0 auto;
+            padding: 0 1.5rem 4rem;
+        }
+        .projects h2 {
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+        .project-card {
+            padding: 1.25rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+        }
+        .project-title {
+            font-weight: 600;
+            font-size: 1.05rem;
+            margin-bottom: 0.3rem;
+        }
+        .project-title a {
+            color: var(--text);
+            text-decoration: none;
+        }
+        .project-title a:hover {
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+        .project-desc {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+        .project-install {
+            position: relative;
+            margin-bottom: 1rem;
+        }
+        .project-install pre {
+            margin: 0;
+            padding: 0.85rem 5.5rem 0.85rem 1rem;
+            background: var(--input-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            white-space: pre-wrap;
+            word-break: break-all;
+            font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            color: var(--text);
+        }
+        .project-install button {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            padding: 0.35rem 0.7rem;
+            background: var(--text);
+            color: var(--bg);
+            border: none;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            font-family: inherit;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+        .project-install button:hover {
+            opacity: 0.85;
+        }
+        .project-meta {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        .project-meta strong {
+            color: var(--text);
+            font-weight: 600;
+        }
+        .project-meta code {
+            font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+            font-size: 0.85em;
+        }
+        .project-links {
+            margin-top: 0.75rem;
+            font-size: 0.85rem;
+        }
+        .project-links a {
+            color: var(--text);
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+
         /* FOOTER */
         footer {
             text-align: center;
@@ -335,6 +431,21 @@
         </ul>
     </section>
 
+    <section class="projects" id="projects">
+        <h2>Proyectos</h2>
+        <div class="project-card" id="quotabar">
+            <div class="project-title"><a href="https://github.com/romaniker/QuotaBar">QuotaBar</a></div>
+            <p class="project-desc">Un punto de color en la barra de menús del Mac que te dice cuánta cuota de Claude te queda, y te avisa antes de que se acabe. Open source, ~900 líneas de Swift.</p>
+            <div class="project-install">
+                <pre><code id="quotabarCmd">git clone https://github.com/romaniker/QuotaBar.git &amp;&amp; cd QuotaBar &amp;&amp; ./install.sh</code></pre>
+                <button type="button" id="quotabarCopy">Copiar</button>
+            </div>
+            <p class="project-meta"><strong>Requisitos:</strong> macOS 14+, Apple Silicon, Command Line Tools (<code>xcode-select --install</code>) y Claude Code con sesión iniciada. Se compila en tu Mac: no hay binario que descargar.</p>
+            <p class="project-meta"><strong>Privacidad:</strong> lee el token que Claude Code ya guarda en tu Llavero, no almacena credenciales propias y solo habla con la API de Anthropic. Sin analítica ni telemetría.</p>
+            <p class="project-links"><a href="https://github.com/romaniker/QuotaBar">Código en GitHub →</a></p>
+        </div>
+    </section>
+
     <footer>
         <p>© 2026 Iker Roman · <a href="https://x.com/TU_USUARIO" target="_blank" rel="noopener">Twitter</a></p>
     </footer>
@@ -357,6 +468,14 @@
         toggle.addEventListener('click', () => {
             const current = html.getAttribute('data-theme');
             setTheme(current === 'dark' ? 'light' : 'dark');
+        });
+
+        // Copy install command (QuotaBar)
+        document.getElementById('quotabarCopy').addEventListener('click', () => {
+            const btn = document.getElementById('quotabarCopy');
+            const text = document.getElementById('quotabarCmd').textContent;
+            const done = () => { btn.textContent = 'Copiado'; setTimeout(() => btn.textContent = 'Copiar', 1500); };
+            if (navigator.clipboard) navigator.clipboard.writeText(text).then(done); else done();
         });
 
         // Form submit
